@@ -1,25 +1,25 @@
 # include <stdio.h>
 # include <stdlib.h>
 
-struct node{
+struct avlnode{
     int data;
-    struct node * left;
-    struct node * right;
+    struct avlnode * left;
+    struct avlnode * right;
     int height;
-}typedef Node;
+}typedef avlnode;
 
-Node * avl_getnode(int x);
-int avl_getheight(Node* t);
-Node* avl_addtree(Node* root,int t);
-Node* avl_delete(Node* root,int t);
-int balancefactor(Node * r);
-Node* LL(Node* r);
-Node* RR(Node* r);
-Node* LR(Node* r);
-Node* RL(Node* r);
-Node * avl_search(Node* root, int x);
-int avl_minimum(Node* root);
-int avl_maximum(Node* root);
-void avl_preorder(Node* root);
-void avl_inorder(Node* root);
-void avl_postorder(Node* root);
+avlnode * avl_getavlnode(int x);
+int avl_getheight(avlnode* t);
+avlnode* avl_addtree(avlnode* root,int t);
+avlnode* avl_delete(avlnode* root,int t);
+int balancefactor(avlnode * r);
+avlnode* LL(avlnode* r);
+avlnode* RR(avlnode* r);
+avlnode* LR(avlnode* r);
+avlnode* RL(avlnode* r);
+avlnode * avl_search(avlnode* root, int x);
+int avl_minimum(avlnode* root);
+int avl_maximum(avlnode* root);
+void avl_preorder(avlnode* root);
+void avl_inorder(avlnode* root);
+void avl_postorder(avlnode* root);

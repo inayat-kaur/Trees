@@ -1,7 +1,7 @@
 # include "avl.h"
 
-Node * avl_getnode(int x){
-    Node * t = (Node*)malloc(sizeof(Node));
+avlnode * avl_getavlnode(int x){
+    avlnode * t = (avlnode*)malloc(sizeof(avlnode));
     t->data=x;
     t->left=NULL;
     t->right=NULL;
@@ -9,7 +9,7 @@ Node * avl_getnode(int x){
     return t;
 }
 
-int avl_getheight(Node* t){
+int avl_getheight(avlnode* t){
     if(t==NULL) return 0;
     if(t->left==NULL && t->right==NULL) return 0;
     int left=avl_getheight(t->left);
@@ -18,9 +18,9 @@ int avl_getheight(Node* t){
     else return 1+right;
 }
 
-Node* avl_addtree(Node* root,int t){
+avlnode* avl_addtree(avlnode* root,int t){
     if(root==NULL){
-        return avl_getnode(t);
+        return avl_getavlnode(t);
     } 
     if(t<root->data){
         root->left=avl_addtree(root->left,t);
@@ -45,7 +45,7 @@ Node* avl_addtree(Node* root,int t){
 }  
 
 
-Node* avl_delete(Node* root,int t){
+avlnode* avl_delete(avlnode* root,int t){
     if(root==NULL)return NULL;
     else if(root->data==t){
         if(root->left==NULL&&root->right==NULL){
@@ -53,12 +53,12 @@ Node* avl_delete(Node* root,int t){
             return NULL;
         }
         else if(root->left==NULL){
-            Node*temp=root->right;
+            avlnode*temp=root->right;
             free(root);
             return temp;
         }
         else if(root->right==NULL){
-            Node*temp=root->left;
+            avlnode*temp=root->left;
             free(root);
             return temp;
         }
@@ -98,7 +98,7 @@ Node* avl_delete(Node* root,int t){
     return root;
 }
 
-int balancefactor(Node * r){
+int balancefactor(avlnode * r){
     if(r==NULL) return 0;
     int lh,rh;
     if(r->left==NULL)lh=0;
@@ -108,8 +108,8 @@ int balancefactor(Node * r){
     return lh-rh;
 }
 
-Node* LL(Node* r){
-    Node *temp =r->left;
+avlnode* LL(avlnode* r){
+    avlnode *temp =r->left;
     r->left=r->left->right;
     temp->right=r;
     r->height=avl_getheight(r);
@@ -117,8 +117,8 @@ Node* LL(Node* r){
     return temp;
 }
 
-Node* RR(Node* r){
-    Node *temp =r->right;
+avlnode* RR(avlnode* r){
+    avlnode *temp =r->right;
     r->right=r->right->left;
     temp->left=r;
     r->height=avl_getheight(r);
@@ -126,36 +126,36 @@ Node* RR(Node* r){
     return temp;
 }
 
-Node* LR(Node* r){
+avlnode* LR(avlnode* r){
     r->left=RR(r->left);
-    Node*temp = LL(r);
+    avlnode*temp = LL(r);
     return temp;
 }
 
-Node* RL(Node* r){
+avlnode* RL(avlnode* r){
     r->right=LL(r->right);
-    Node* temp=RR(r);
+    avlnode* temp=RR(r);
     return temp;
 }
 
-Node * avl_search(Node* root, int x){
+avlnode * avl_search(avlnode* root, int x){
     if(root==NULL)return NULL;
     else if(root->data==x)return root;
     else if(root->data>x)return avl_search(root->left,x);
     else if(root->data<x)return avl_search(root->right,x);
 }
 
-int avl_minimum(Node* root){
+int avl_minimum(avlnode* root){
     if(root->left==NULL)return root->data;
     else return avl_minimum(root->left);
 }
 
-int avl_maximum(Node* root){
+int avl_maximum(avlnode* root){
     if(root->right==NULL)return root->data;
     else return avl_maximum(root->right);
 }
 
-void avl_preorder(Node* root){
+void avl_preorder(avlnode* root){
     if(root!=NULL){
         printf("%d ",root->data);
         avl_preorder(root->left);
@@ -163,7 +163,7 @@ void avl_preorder(Node* root){
     }
 }
 
-void avl_inorder(Node* root){
+void avl_inorder(avlnode* root){
     if(root!=NULL){
         avl_inorder(root->left);
         printf("%d ",root->data);
@@ -171,7 +171,7 @@ void avl_inorder(Node* root){
     }
 }
 
-void avl_postorder(Node* root){
+void avl_postorder(avlnode* root){
     if(root!=NULL){
         avl_postorder(root->left);        
         avl_postorder(root->right);

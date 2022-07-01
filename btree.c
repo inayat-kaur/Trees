@@ -1,60 +1,10 @@
 # include "btree.h"
 
-int main(){
-    int t,k;
-    char ca;
-    printf("Enter the minimum degree of the B-tree t: ");
-    scanf("%d",&t);
-    printf("Enter A or B: ");
-    scanf(" %c",&ca);
-    if(ca=='A'){
-        btree * T;
-        T=B_TREE_CREATE(t);         //Creating an empty tree
-        for(int i=100;i>0;i--){
-            T=B_TREE_INSERT(T,i,t);     //Inserting elements in the tree
-        }
-        printf("Inoder traversal is: ");
-        B_TREE_INORDER_TRAVERSE(T);         //Inorder traversal of the tree
-        printf("\nEnter an element to search: ");
-        scanf("%d",&k);
-        pair* p=B_TREE_SEARCH(T,k);         //pair p conatins pointer to the node in which key is present and the index at which it is present.
-        if(p==NULL)printf("Not present\n");
-        else printf("Present\n");
-    }
-    else if(ca=='B'){
-            btree * T;
-            T=B_TREE_CREATE(t);     //Creating an empty tree
-        do{
-            printf("options: I for insertion, S for search, M for finding minimum, T for traversing the B-tree, E for exit: ");
-            scanf(" %c",&ca);
-        if(ca=='I'){
-            int p;
-            printf("Enter number of elements you wanted to enter: ");
-            scanf("%d",&k);
-            printf("Enter %d numbers to insert: ",k);
-            for(int i=0;i<k;i++){
-                scanf("%d",&p);
-                T=B_TREE_INSERT(T,p,t);             //Inserting elements in the tree
-            }
-        }
-        else if(ca=='S'){
-            printf("Enter element to search: ");
-            scanf("%d",&k);
-            pair* p=B_TREE_SEARCH(T,k);         //pair p conatins pointer to the node in which key is present and the index at which it is present.
-            if(p==NULL)printf("Not present\n");
-            else printf("Present\n");
-        }
-        else if(ca=='M'){
-            printf("Minimum element is: %d\n",B_TREE_MIN(T));       //Printing minimum element of the tree
-        }
-        else if(ca=='T'){
-            printf("Inorder traversal is: ");
-            B_TREE_INORDER_TRAVERSE(T);         //Inorder traversal of the tree
-            printf("\n");
-        }
-        }while(ca!='E');
-    }
-    return 0;
+pair* make_pair(btree * b,int i){                   //Function to make a pair structure.
+    pair* p=(pair *)malloc(sizeof(btree*)+sizeof(int));
+    p->x=b;
+    p->index=i;
+    return p;
 }
 
 btree* B_TREE_CREATE(int t){            //Creating an empty B-Tree

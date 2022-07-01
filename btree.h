@@ -14,13 +14,7 @@ struct Pair{
     int index;          //It contains pointer to the node which contains the given key and index at which it is present. 
 }typedef pair;
 
-pair* make_pair(btree * b,int i){                   //Function to make a pair structure.
-    pair* p=(pair *)malloc(sizeof(btree*)+sizeof(int));
-    p->x=b;
-    p->index=i;
-    return p;
-}
-
+pair* make_pair(btree * b,int i);                   //Function to make a pair structure.
 btree* B_TREE_CREATE(int t);                //To create an empty B-tree
 void B_TREE_SPLIT_CHILD(btree* x, int i,int t);             //To split a completely filled node
 btree* B_TREE_INSERT(btree *x,int k,int t);                 //To insert a key in the B-Tree
